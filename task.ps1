@@ -63,3 +63,17 @@ foreach ($i in 1..2) {
         -Credential (Get-Credential -UserName $vmUsername)
 }
 
+$storageAccountName = "eldarstorage1"
+$resourceGroupName  = "mate-azure-task-10"
+$containerName      = "task-artifacts"
+
+$storageAccount = Get-AzStorageAccount `
+  -ResourceGroupName $resourceGroupName `
+  -Name $storageAccountName
+
+$ctx = $storageAccount.Context
+
+New-AzStorageContainer `
+  -Name $containerName `
+  -Context $ctx `
+  -Permission Off
